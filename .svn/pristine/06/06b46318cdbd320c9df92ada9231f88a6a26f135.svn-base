@@ -1,0 +1,33 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package HelperClasses;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author cocor
+ */
+public class MenuHelper
+{
+    Scanner scan = new Scanner(System.in);
+    
+    public static int displayMenu(String message, int min, int max)
+    {
+        System.out.println(message);
+        while(!scan.hasNextInt())
+        {
+            
+        }
+    }
+    
+    public static String getInput(String prompt)
+    {
+        System.out.println(prompt);
+        
+        return scan.nextLine();
+    }
+}

@@ -1,0 +1,122 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package GameEntities;
+import static HelperClasses.MenuHelper.displayMenu;
+import java.util.Random;
+/**
+ *
+ * @author jake.widseth
+ */
+public class GameSetup
+{
+    Game game;
+    Camel camel;
+    Rider rider;
+    Random rand = new Random();
+    
+    public Game setupGame()
+    {
+       int difficulty = displayMenu("Please choose a difficulty\n1) Easy\n2) Normal\n3) Hard", 1, 3);
+    
+       setupCamel();
+               
+       setupRider();
+       
+       if(difficulty == 1)
+       {
+            camel.adjustEnergy(20);
+            camel.adjustHunger(20);
+            camel.adjustThirst(20);
+            rider.adjustEnergy(20);
+            rider.adjustHunger(20);
+            rider.adjustThirst(20);
+       }
+       if(difficulty == 3)
+       {
+            camel.adjustEnergy(-10);
+            camel.adjustHunger(-10);
+            camel.adjustThirst(-10);
+            rider.adjustEnergy(-10);
+            rider.adjustHunger(-10);
+            rider.adjustThirst(-10);
+       }
+       Game game = new Game(difficulty, camel, rider);
+       
+       return game;
+    }
+    
+    private Camel setupCamel()
+    {
+        
+        camel.adjustEnergy(-100);
+        camel.adjustHunger(-100);
+        camel.adjustThirst(-100);
+        
+        int input = displayMenu("What type of camel would you like to use?\n1) Standard\n2) Random\n3) Custom", 1, 3);
+        //standard code
+        if(input == 1)
+        {
+            camel.adjustThirst(75);
+            camel.adjustEnergy(75);
+            camel.adjustHunger(75);
+        }
+        //random code
+        else if(input == 2)
+        {
+            camel.adjustEnergy(rand.nextInt(50) + 50);
+            camel.adjustHunger(rand.nextInt(50) + 50);
+            camel.adjustThirst(rand.nextInt(50) + 50);
+        }
+        //custom code
+        else if(input == 3)
+        {
+            int thirst = displayMenu("Please enter an initial thirst level for your camel", 1, 100);
+            int hunger = displayMenu("Please enter an initial hunger level for your camel", 1, 100);
+            int energy = displayMenu("Please enter an initial energy level for your camel", 1, 100);
+            
+            camel.adjustEnergy(energy);
+            camel.adjustHunger(hunger);
+            camel.adjustThirst(thirst);
+        }
+        return camel;
+    }
+    
+    private Rider setupRider()
+    {
+        rider.adjustEnergy(-100);
+        rider.adjustHunger(-100);
+        rider.adjustThirst(-100);
+        
+        int input = displayMenu("What type of rider would you like to use?\n1) Standard\n2) Random\n3) Custom", 1, 3);
+        //standard code
+        if(input == 1)
+        {
+            rider.adjustThirst(75);
+            rider.adjustEnergy(75);
+            rider.adjustHunger(75);
+        }
+        //random code
+        else if(input == 2)
+        {
+            rider.adjustEnergy(rand.nextInt(50) + 50);
+            rider.adjustHunger(rand.nextInt(50) + 50);
+            rider.adjustThirst(rand.nextInt(50) + 50);
+        }
+        //custom code
+        else if(input == 3)
+        {
+            int thirst = displayMenu("Please enter an initial thirst level for your rider", 15, 100);
+            int hunger = displayMenu("Please enter an initial hunger level for your rider", 15, 100);
+            int energy = displayMenu("Please enter an initial energy level for your rider", 15, 100);
+            
+            rider.adjustEnergy(energy);
+            rider.adjustHunger(hunger);
+            rider.adjustThirst(thirst);
+        }
+        return rider;
+    }
+}
+

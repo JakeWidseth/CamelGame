@@ -1,0 +1,271 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package GameEntities;
+
+import static HelperClasses.DescriptionHelper.getEnergyDescription;
+import static HelperClasses.DescriptionHelper.getHungerDescription;
+import static HelperClasses.DescriptionHelper.getThirstDescription;
+import static HelperClasses.MenuHelper.displayMenu;
+import java.util.Random;
+
+/**
+ *
+ * @author cocor
+ */
+public class Game
+{
+
+    Camel camel;
+    Rider rider;
+    double difficulty;
+    int distanceTraveled;
+    int pursuerDistance;
+    int distancebetween;
+    int currentDay;
+    String timeOfDay;
+    String weather;
+    String location;
+    Random rand = new Random();
+    
+    
+    public void start()
+    {
+        //Change number to change the difficulty
+        while(distanceTraveled < 300)
+        {
+            
+            
+            
+        }
+    }
+    
+    private boolean checkCamelCanTravel()
+    {
+        boolean output;
+        
+        if(camel.getEnergy() == 0)
+        {
+            output = false;
+        }
+        else if(camel.getHunger() == 0)
+        {
+            output = false;
+        }
+        else if(camel.getThirst() == 0)
+        {
+            output = false;
+        }
+        else
+        {
+            output = true;
+        }
+        
+        return output;
+    }
+    
+    private boolean checkRiderIsDead()
+    {
+        boolean output;
+        
+        if(rider.getEnergy() == 0)
+        {
+            output = false;
+        }
+        else if(rider.getHunger() == 0)
+        {
+            output = false;
+        }
+        else if(rider.getThirst() == 0)
+        {
+            output = false;
+        }
+        else
+        {
+            output = true;
+        }
+        
+        return output;
+    }
+    
+    private void getNewLocation()
+    {
+        int random = rand.nextInt(14);
+        
+        if(random <= 1)
+        {
+            location = "Oasis";
+        }
+        else if(random >= 2 && random <= 3)
+        {
+            location = "Ruins";
+        }
+        else if(random >= 4 && random <= 5)
+        {
+            location = "River Bank";
+        }
+        else if(random >= 6 && random <= 11)
+        {
+            location = "Desert Plains";
+        }
+        else if(random >= 12 && random <= 14)
+        {
+            location = "Desert Hills";
+        }
+    }
+    
+    private void getNewWeather()
+    {
+        int random = rand.nextInt(9);
+        
+        if(random == 0)
+        {
+            weather = "Sandstorm";
+        }
+        else if(random == 1)
+        {
+            weather = "Raining";
+        }
+        else if(random == 2)
+        {
+            weather = "Cloudy";
+        }
+        else if(random >= 3 && random <= 5)
+        {
+            weather = "Warm";
+        }
+        else if(random >= 6 && random <= 9)
+        {
+            if(timeOfDay.equals("Afternoon"))
+            {
+                weather = "Extremely Hot";
+            }
+            else
+            {
+                weather = "Warm";
+            }
+        }
+        
+    }
+    
+    private void getNewTimeOfDay()
+    {
+        if(timeOfDay.equals("Morning"))
+        {
+            timeOfDay = "Afternoon";
+        }
+        else if(timeOfDay.equals("Afternoon"))
+        {
+            timeOfDay = "Evening";
+        }
+        else if(timeOfDay.equals("Evening"))
+        {
+            timeOfDay = "Night";
+        }
+        else if(timeOfDay.equals("Night"))
+        {
+            timeOfDay = "Morning";
+            currentDay += 1;
+        }
+    }
+    
+    private String getPursuerDistanceDescription()
+    {
+        distancebetween = distanceTraveled - pursuerDistance;
+        
+        return "Your pursuers are " + distancebetween + "miles behind you.";
+    }
+    
+    private void outputTurnInformation()
+    {
+        System.out.println("Day: " + currentDay + "            Distance Traveled: " + distanceTraveled);
+        System.out.println("Pursuer Distance: " + getPursuerDistanceDescription());
+        System.out.println("Time: " + timeOfDay + "      Location: " + location + ", Weather: " + weather);
+        System.out.println("Rider Status:          Camel Status:");
+        System.out.println("Thirst:" + getThirstDescription(rider) + "         Thirst: " + getThirstDescription(camel));
+        System.out.println("Hunger:" + getHungerDescription(rider) + "         Hunger: " + getHungerDescription(camel));
+        System.out.println("Energy:" + getEnergyDescription(rider) + "         Energy: " + getEnergyDescription(camel)); 
+    }
+    
+    private void processTurn()
+    {
+        int input = displayMenu("What would you like to do:\n1) Rest\n2) Search for Food\n3) Search for Water\n"
+                + "4) Travel Carefully\n5) Travel Regualarly\n6) Ride Hard", 1, 6);
+        
+        if(input == 1)
+        {
+            //REST CODE
+        }
+        else if(input == 2)
+        {
+            //FOOD CODE
+        }
+        else if(input == 3)
+        {
+            //WATER CODE
+        }
+        else if(input == 4)
+        {
+            //CAREFUL CODE
+        }
+        else if(input == 5)
+        {
+            //REGULAR CODE
+        }
+        else if(input == 6)
+        {
+            //HARD CODE
+        }  
+    }
+    //adjust levels to adjust difficulty
+    private void processFoodSearch()
+    {
+          int random = rand.nextInt(7) + 1;
+          
+          if(location.equals("Oasis") || location.equals("River Bank"))
+          {
+              if(random <= 2)
+              {
+                  System.out.println("You couldn't find any food...");
+              }
+              else if(random >= 3 && random <= 6)
+              {
+                  System.out.println("You found food!");
+                  camel.adjustHunger(rand.nextInt(10) + 25);
+                  rider.adjustHunger(rand.nextInt(10) + 25);
+              }
+              else if(random > 6)
+              {
+                  System.out.println("You found plenty of food!");
+                  camel.adjustHunger(rand.nextInt(10) + 50);
+                  rider.adjustHunger(rand.nextInt(10) + 50);
+              }
+          }
+          else
+          {
+              if(random <= 3)
+              {
+                  System.out.println("You couldn't find any food...");
+              }
+              else if(random >= 4 && random <= 7)
+              {
+                  System.out.println("You found food!");
+                  camel.adjustHunger(rand.nextInt(10) + 25);
+                  rider.adjustHunger(rand.nextInt(10) + 25);
+              }
+              else if(random == 8)
+              {
+                  System.out.println("You found plenty of food!");
+                  camel.adjustHunger(rand.nextInt(10) + 50);
+                  rider.adjustHunger(rand.nextInt(10) + 50);
+              }
+          }
+          //adjust these maybe?
+          camel.adjustEnergy(-1*(rand.nextInt(7) + 3));
+          rider.adjustEnergy(-1*(rand.nextInt(7) + 3));
+          camel.adjustThirst(-1*(rand.nextInt(7) + 3));
+          rider.adjustThirst(-1*(rand.nextInt(7) + 3));
+    }
+}

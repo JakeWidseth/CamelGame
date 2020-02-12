@@ -1,0 +1,32 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package GameEntities;
+import static HelperClasses.MenuHelper.displayMenu;
+/**
+ *
+ * @author jake.widseth
+ */
+public class GameSetup
+{
+    Game game;
+    Camel camel;
+    Rider rider;
+    
+    public Game setupGame()
+    {
+        
+    }
+    
+    private Camel setupCamel()
+    {
+        displayMenu("", 0, 0);
+    }
+    
+    private Rider setupRider()
+    {
+        
+    }
+}
